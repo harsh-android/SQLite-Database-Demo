@@ -9,17 +9,18 @@ class Database(context: Context?) :
     SQLiteOpenHelper(context, "School.db", null, 1) {
     var context = context
     override fun onCreate(p0: SQLiteDatabase?) {
-        var sql = "CREATE TABLE student(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, address TEXT)"
+        var sql = "CREATE TABLE student(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, address TEXT, type INTEGER)"
         p0?.execSQL(sql)
     }
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
     }
-    fun insertData(name:String, surname:String, address:String) {
+    fun insertData(name:String, surname:String, address:String, type:Int) {
         var db = writableDatabase
         var values = ContentValues()
         values.put("name",name)
         values.put("surname",surname)
         values.put("address",address)
+        values.put("type",type)
         var iss = db.insert("student",null,values)
         if (iss.toInt() == -1) {
             Toast.makeText(context, "Data is Not Insert", Toast.LENGTH_SHORT).show()
